@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using odevweb.Models;
 
@@ -11,9 +12,10 @@ using odevweb.Models;
 namespace odevweb.Migrations
 {
     [DbContext(typeof(KuaforContext))]
-    partial class KuaforContextModelSnapshot : ModelSnapshot
+    [Migration("20241208204634_mig_2")]
+    partial class mig_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,9 +36,6 @@ namespace odevweb.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PersonelId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Sure")
                         .HasColumnType("int");
 
@@ -44,9 +43,6 @@ namespace odevweb.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("IslemId");
-
-                    b.HasIndex("PersonelId")
-                        .IsUnique();
 
                     b.ToTable("Islems");
                 });
@@ -161,32 +157,6 @@ namespace odevweb.Migrations
                     b.ToTable("RandevuIslems");
                 });
 
-            modelBuilder.Entity("odevweb.Models.RandevuPersonel", b =>
-                {
-                    b.Property<int>("RandevuId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonelId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RandevuId", "PersonelId");
-
-                    b.HasIndex("PersonelId");
-
-                    b.ToTable("RandevuPersonel");
-                });
-
-            modelBuilder.Entity("odevweb.Models.Islem", b =>
-                {
-                    b.HasOne("odevweb.Models.Personel", "Personel")
-                        .WithOne("Islem")
-                        .HasForeignKey("odevweb.Models.Islem", "PersonelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Personel");
-                });
-
             modelBuilder.Entity("odevweb.Models.PersonelMusaitlik", b =>
                 {
                     b.HasOne("odevweb.Models.Personel", "Personel")
@@ -228,25 +198,6 @@ namespace odevweb.Migrations
                     b.Navigation("Randevu");
                 });
 
-            modelBuilder.Entity("odevweb.Models.RandevuPersonel", b =>
-                {
-                    b.HasOne("odevweb.Models.Personel", "Personel")
-                        .WithMany("Randevus")
-                        .HasForeignKey("PersonelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("odevweb.Models.Randevu", "Randevu")
-                        .WithMany("Personels")
-                        .HasForeignKey("RandevuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Personel");
-
-                    b.Navigation("Randevu");
-                });
-
             modelBuilder.Entity("odevweb.Models.Islem", b =>
                 {
                     b.Navigation("Randevus");
@@ -259,19 +210,12 @@ namespace odevweb.Migrations
 
             modelBuilder.Entity("odevweb.Models.Personel", b =>
                 {
-                    b.Navigation("Islem")
-                        .IsRequired();
-
                     b.Navigation("PersonelMusaitliks");
-
-                    b.Navigation("Randevus");
                 });
 
             modelBuilder.Entity("odevweb.Models.Randevu", b =>
                 {
                     b.Navigation("Islems");
-
-                    b.Navigation("Personels");
                 });
 #pragma warning restore 612, 618
         }

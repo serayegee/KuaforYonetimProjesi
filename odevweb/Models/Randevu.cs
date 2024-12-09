@@ -12,5 +12,7 @@ namespace odevweb.Models
         [ForeignKey(nameof(Musteri))]
         public int MusteriId { get; set; }
         public Musteri Musteri { get; set; } = null!;
+        public ICollection<RandevuIslem> Islems { get; set; }
+        public ICollection<RandevuPersonel> Personels { get; set; }
     }
 }

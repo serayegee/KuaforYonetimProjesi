@@ -1,11 +1,12 @@
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.EntityFrameworkCore;
 using odevweb.Models;
 
-KuaforContext context = new();
+//KuaforContext context = new();
 
 
 //Ýþlemleri ekleme
-Islem islem = new()
+/*Islem islem = new()
 {
     Ad = "Saç Kesimi",
     Sure = 60,
@@ -45,16 +46,29 @@ Islem islem6 = new()
     Ad = "Manikür-Pedikür",
     Sure = 45,
     Ucret = 200
-};
+};*/
 
 //context.Islems.Add(islem);
 //context.Islems.Add(islem2);
-context.Islems.Add(islem3);
+/*context.Islems.Add(islem3);
 context.Islems.Add(islem4);
 context.Islems.Add(islem5);
 context.Islems.Add(islem6);
 context.SaveChanges();
 
+context.Islems.Remove(islem);
+context.Islems.Remove(islem2);
+context.Islems.Remove(islem3);
+context.Islems.Remove(islem4);
+context.Islems.Remove();
+context.Islems.Remove();*/
+
+/*using (var dbcontext = new KuaforContext())
+{
+    var allIslems =dbcontext.Islems.ToList();
+    dbcontext.Islems.RemoveRange(allIslems);
+    dbcontext.SaveChanges();
+}*/
 
 var builder = WebApplication.CreateBuilder(args);
 

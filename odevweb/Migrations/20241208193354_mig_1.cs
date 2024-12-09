@@ -9,7 +9,7 @@ namespace odevweb.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
+            /*migrationBuilder.CreateTable(
                 name: "Islems",
                 columns: table => new
                 {
@@ -152,11 +152,11 @@ namespace odevweb.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Randevus_MusteriId",
                 table: "Randevus",
-                column: "MusteriId");
+                column: "MusteriId");*/
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
-        {
+        {/*
             migrationBuilder.DropTable(
                 name: "PersonelMusaitliks");
 
@@ -173,7 +173,7 @@ namespace odevweb.Migrations
                 name: "Randevus");
 
             migrationBuilder.DropTable(
-                name: "Musteris");
+                name: "Musteris");*/
         }
     }
 }

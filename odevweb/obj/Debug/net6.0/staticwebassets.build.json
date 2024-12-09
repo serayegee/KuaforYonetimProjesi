@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "mYEZQlIUhAxtWIWr9Xpe5pF+vLDfl4ZAdYUIwPh5U0A=",
+  "Hash": "yWxU5CSQQTiplYHGEMPQa7rxO/wUUaQBJV9M+2jfddY=",
   "Source": "odevweb",
   "BasePath": "_content/odevweb",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\PC\\source\\repos\\odevweb\\odevweb\\wwwroot\\images\\logo.png",
+      "SourceId": "odevweb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\PC\\source\\repos\\odevweb\\odevweb\\wwwroot\\",
+      "BasePath": "_content/odevweb",
+      "RelativePath": "images/logo.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\logo.png"
     },
     {
       "Identity": "C:\\Users\\PC\\source\\repos\\odevweb\\odevweb\\wwwroot\\js\\site.js",

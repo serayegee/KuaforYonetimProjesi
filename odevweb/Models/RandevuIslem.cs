@@ -1,17 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace odevweb.Models
 {
     public class RandevuIslem
     {
-        public int RandevuIslemId { get; set; }
+        //[ForeignKey(nameof(Islem))]
         public int IslemId { get; set; }
-        public int PersonelId { get; set; }
+        //[ForeignKey(nameof(Randevu))]
         public int RandevuId { get; set; }
-
-        public Islem Islem { get; set; } = null!;
-        public Personel Personel { get; set; } = null!;
-        public Randevu Randevu { get; set; } = null!;
+        public Islem Islem { get; set; }
+        public Randevu Randevu { get; set; }
 
     }
 }

@@ -24,7 +24,15 @@ namespace odevweb.Models
         }
 
 
- 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<RandevuIslem>()
+                .HasKey(ri => new{ri.RandevuId, ri.IslemId});
+
+            modelBuilder.Entity<RandevuPersonel>()
+                .HasKey(rp => new { rp.RandevuId, rp.PersonelId });
+        }
+
 
     }
 
