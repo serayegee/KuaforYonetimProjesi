@@ -70,6 +70,20 @@ context.Islems.Remove();*/
     dbcontext.SaveChanges();
 }*/
 
+using (var context = new KuaforContext())
+{
+    var admin = new Kullanici
+    {
+        KullaniciAdi = "b221210069@sakarya.edu.tr",
+        Sifre = "sau", // Güvenlik için þifreyi hashleyebilirsiniz
+        IsAdmin = true
+    };
+
+    context.Kullanicis.Add(admin);
+    context.SaveChanges();
+}
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
