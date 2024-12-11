@@ -39,3 +39,124 @@ html {
         color: #000000 !important; /* Üzerine gelindiðinde siyah renk */
     }
 
+
+.anasayfa-image {
+       width: 100%;
+    height: auto; /* Oraný koruyarak yüksekliði ayarla */
+    object-fit: cover; /* Görselin taþmasýný önle */
+    border-radius: 10px; /* Köþeleri yuvarla */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Gölge efekti */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover efekti için geçiþ */
+}
+
+/* Hover Efekti 
+.anasayfa-image:hover {
+    transform: scale(1.05);  Görseli büyüt 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /Gölgeyi yoðunlaþtýr 
+}
+*/
+
+@media (max-width: 768px) {
+    .anasayfa-image {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+.hakkimizda-baslik {
+    font-family: 'Redressed', cursive; /* Redressed fontu */
+    text-align: center;
+    font-size: 48px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Ýçerik Stilleri */
+.hakkimizda-content {
+    display: flex;
+    justify-content: space-between; /* Yan yana düzenleme */
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.hakkimizda-info {
+    flex: 1;
+    font-family: 'Roboto', sans-serif; /* Ýçerik fontu */
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+}
+
+    .hakkimizda-info ul {
+        list-style-type: none; /* Liste noktalarýný kaldýr */
+        padding: 0;
+    }
+
+    .hakkimizda-info li {
+        margin-bottom: 10px;
+    }
+
+.hakkimizda-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .hakkimizda-image img {
+        max-width: 100%;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+
+@media (max-width: 768px) {
+    .hakkimizda-content {
+        flex-direction: column; /* Mobilde alt alta diz */
+    }
+
+    .hakkimizda-image img {
+        max-height: 300px; /* Mobilde daha küçük resim */
+    }
+
+    .hakkimizda-baslik {
+        font-size: 36px; /* Baþlýðý küçült */
+    }
+
+    .hakkimizda-info {
+        font-size: 16px; /* Ýçeriði küçült */
+    }
+}
+
+/* Hizmet Fotoðraflarý Stili */
+img.img-fluid {
+    border-radius: 10px; /* Köþeleri yuvarlat */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Gölgeleme */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover efekti */
+}
+
+/* Hover efekti */
+img.img-fluid:hover {
+    transform: scale(1.05); /* Görseli büyüt */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Gölgeyi artýr */
+}
+
+@media (max-width: 768px) {
+    .row > div {
+        margin-bottom: 20px; /* Fotoðraflar arasýnda boþluk */
+    }
+
+    .btn-lg {
+        width: 100%; /* Butonu mobilde tam geniþlikte yap */
+    }
+}
+
+.hizmetlerimiz-baslik {
+    font-family: 'Redressed', cursive; /* Redressed fontu */
+    text-align: center;
+    font-size: 48px;
+    color: #333;
+    margin-bottom: 20px;
+}

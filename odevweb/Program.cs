@@ -80,7 +80,7 @@ using (var context = new KuaforContext())
     };
 
     context.Kullanicis.Add(admin);
-    context.SaveChanges();
+    //context.SaveChanges();
 }
 
 
