@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.EntityFrameworkCore;
 using odevweb.Models;
@@ -70,24 +71,48 @@ context.Islems.Remove();*/
     dbcontext.SaveChanges();
 }*/
 
+/*
 using (var context = new KuaforContext())
 {
     var admin = new Kullanici
     {
         KullaniciAdi = "b221210069@sakarya.edu.tr",
-        Sifre = "sau", // Güvenlik için þifreyi hashleyebilirsiniz
+        Sifre = "sau", 
         IsAdmin = true
     };
 
     context.Kullanicis.Add(admin);
-    //context.SaveChanges();
-}
+    context.SaveChanges();
+}*/
+
+using (var context = new KuaforContext())
+{
+    // Eðer admin zaten yoksa ekle
+    var admin = new Kullanici
+    {
+        KullaniciAdi = "b221210069@sakarya.edu.tr",
+        Sifre = "sau",
+        IsAdmin = true
+    };
+
+    context.Kullanicis.Add(admin);
+    //    context.SaveChanges();
+    }
+
+
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login"; // Login sayfasý
+        options.AccessDeniedPath = "/Account/AccessDenied"; // Yetkisiz eriþim
+    });
 
 
 var app = builder.Build();
@@ -105,7 +130,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+
+
+app.UseAuthentication(); // Authentication middleware
+app.UseAuthorization(); // Authorization middleware
 
 app.MapControllerRoute(
     name: "default",
