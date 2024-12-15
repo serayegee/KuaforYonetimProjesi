@@ -6,10 +6,11 @@ namespace odevweb.Models
     {
         public int PersonelId { get; set; }
         public string Ad { get; set; }
-        public int Uzmanlik { get; set;  }
+        public string Soyad { get; set; }
+        public string Uzmanlik { get; set;  }
         //public PersonelMusaitlik PersonelMusaitlik { get; set; }
-        //[ForeignKey(nameof(Islem))]
-        //public int IslemId { get; set; } 
+        [ForeignKey(nameof(Islem))]
+        public int IslemId { get; set; } 
         public Islem Islem { get; set; }
         public ICollection<PersonelMusaitlik> PersonelMusaitliks { get; set; }
         public ICollection<RandevuPersonel> Randevus { get; set; }

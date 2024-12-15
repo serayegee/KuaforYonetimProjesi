@@ -2,5 +2,64 @@
     ViewData["Title"] = "Admin Panel";
 }
 
+<!--
 <h2>Admin Panel</h2>
-<p>Bu sayfada CRUD işlemleri yapılabilir.</p>
+<p>Bu sayfada yönetim işlemleri yapılabilir.</p>
+
+<ul>
+    <li><a asp-controller="Admin" asp-action="KullaniciListesi">Kullanıcı Listesi</a></li>
+    <li><a asp-controller="Admin" asp-action="KullaniciEkle">Yeni Kullanıcı Ekle</a></li>
+</ul>-->
+
+
+<h2 class="text-center">Admin Panel</h2>
+<p class="text-center">Bu sayfadan sistem yönetim işlemlerini gerçekleştirebilirsiniz.</p>
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Kullanıcı Yönetimi -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    Kullanıcı Yönetimi
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><a asp-controller="Admin" asp-action="KullaniciListesi">Kullanıcı Listesi</a></li>
+                        <li><a asp-controller="Admin" asp-action="KullaniciEkle">Yeni Kullanıcı Ekle</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personel Yönetimi -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    Personel Yönetimi
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><a asp-controller="Admin" asp-action="PersonelListesi">Personel Listesi</a></li>
+                        <li><a asp-controller="Admin" asp-action="PersonelEkle">Yeni Personel Ekle</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- İşlem Yönetimi -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-warning text-white">
+                    İşlem Yönetimi
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><a asp-controller="Admin" asp-action="IslemListesi">İşlem Listesi</a></li>
+                        <!--<li><a asp-controller="Admin" asp-action="IslemEkle">Yeni İşlem Ekle</a></li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,11 +3,24 @@ using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.EntityFrameworkCore;
 using odevweb.Models;
 
-//KuaforContext context = new();
+KuaforContext context = new();
 
+//Personel ekleme
+/*
+Personel personel = new()
+{
+    Ad = "Ayþe",
+    Soyad = "Yýlmaz",
+    Uzmanlik = "Saç Kesimi",
+    IslemId = 65
+};
+
+context.Personels.Add(personel);
+context.SaveChanges();*/
 
 //Ýþlemleri ekleme
-/*Islem islem = new()
+/*
+Islem islem = new()
 {
     Ad = "Saç Kesimi",
     Sure = 60,
@@ -47,15 +60,16 @@ Islem islem6 = new()
     Ad = "Manikür-Pedikür",
     Sure = 45,
     Ucret = 200
-};*/
+};
 
-//context.Islems.Add(islem);
-//context.Islems.Add(islem2);
-/*context.Islems.Add(islem3);
+context.Islems.Add(islem);
+context.Islems.Add(islem2);
+context.Islems.Add(islem3);
 context.Islems.Add(islem4);
 context.Islems.Add(islem5);
 context.Islems.Add(islem6);
-context.SaveChanges();
+context.SaveChanges();*/
+/*
 
 context.Islems.Remove(islem);
 context.Islems.Remove(islem2);
@@ -85,6 +99,8 @@ using (var context = new KuaforContext())
     context.SaveChanges();
 }*/
 
+
+/*
 using (var context = new KuaforContext())
 {
     // Eðer admin zaten yoksa ekle
@@ -99,7 +115,7 @@ using (var context = new KuaforContext())
     //    context.SaveChanges();
     }
 
-
+*/
 
 
 var builder = WebApplication.CreateBuilder(args);

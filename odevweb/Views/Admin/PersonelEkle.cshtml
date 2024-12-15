@@ -1,0 +1,34 @@
+﻿@model odevweb.Models.Personel
+
+@{
+    ViewData["Title"] = "PersonelEkle";
+}
+
+<h1>PersonelEkle</h1>
+
+<form asp-action="PersonelEkle" method="post">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div> <!-- Hataları gösterir -->
+    <div class="form-group">
+        <label for="Ad">Ad</label>
+        <input type="text" id="Ad" name="Ad" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="Soyad">Soyad</label>
+        <input type="text" id="Soyad" name="Soyad" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="IslemId">Uzmanlık Alanı (İşlem)</label>
+        <select id="IslemId" name="IslemId" class="form-control" required>
+            <option value="">İşlem Seçin</option>
+            @foreach (var islem in ViewBag.Islemler)
+            {
+                <option value="@islem.IslemId">@islem.Ad</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+</form>
+
+
+

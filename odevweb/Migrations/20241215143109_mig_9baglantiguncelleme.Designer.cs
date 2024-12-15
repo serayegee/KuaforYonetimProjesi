@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using odevweb.Models;
 
@@ -11,9 +12,10 @@ using odevweb.Models;
 namespace odevweb.Migrations
 {
     [DbContext(typeof(KuaforContext))]
-    partial class KuaforContextModelSnapshot : ModelSnapshot
+    [Migration("20241215143109_mig_9baglantiguncelleme")]
+    partial class mig_9baglantiguncelleme
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,13 +111,8 @@ namespace odevweb.Migrations
                     b.Property<int>("IslemId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Soyad")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Uzmanlik")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Uzmanlik")
+                        .HasColumnType("int");
 
                     b.HasKey("PersonelId");
 
@@ -213,7 +210,7 @@ namespace odevweb.Migrations
                     b.HasOne("odevweb.Models.Islem", "Islem")
                         .WithMany("Personels")
                         .HasForeignKey("IslemId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Islem");

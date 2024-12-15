@@ -31,6 +31,48 @@ namespace odevweb.Controllers
             return View();
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(string kullaniciAdi, string sifre)
+        {
+            // Kullanıcıyı veritabanında kontrol et
+            var kullanici = _context.Kullanicis
+                .FirstOrDefault(k => k.KullaniciAdi == kullaniciAdi && k.Sifre == sifre);
+
+            if (kullanici != null)
+            {
+                // Kullanıcı bilgilerini içeren Claim listesi oluştur
+                var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, kullanici.Ad), // Kullanıcının adı
+            new Claim(ClaimTypes.Email, kullanici.KullaniciAdi), // Kullanıcı adı (e-posta)
+            new Claim(ClaimTypes.Role, kullanici.IsAdmin ? "Admin" : "User") // Rol bilgisi
+        };
+
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+
+                // Kullanıcıyı oturum açtır
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+                // Admin kullanıcıysa admin paneline yönlendir
+                if (kullanici.IsAdmin)
+                {
+                    return RedirectToAction("AdminPanel", "Admin");
+                }
+
+                // Normal kullanıcıysa ana sayfaya yönlendir
+                return RedirectToAction("Index", "Home");
+            }
+
+            // Hatalı girişte hata mesajı
+            ViewBag.Error = "Kullanıcı adı veya şifre yanlış.";
+            return View();
+        }
+
+
+        /*
         // POST: Login
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -41,6 +83,7 @@ namespace odevweb.Controllers
 
             if (kullanici != null)
             {
+
                 if (kullanici.IsAdmin)
                 {
                     return RedirectToAction("AdminPanel", "Admin");
@@ -53,7 +96,7 @@ namespace odevweb.Controllers
 
             ViewBag.Error = "Kullanıcı adı veya şifre yanlış.";
             return View();
-        }
+        }*/
 
         /*[Authorize] // Giriş yapılmış kullanıcılar için erişime izin ver
         public IActionResult AdminPanel()
@@ -66,7 +109,7 @@ namespace odevweb.Controllers
         {
             return View();
         }*/
-        
+
         /*
         private readonly KuaforContext _context;
 
