@@ -9,7 +9,7 @@ namespace odevweb.Models
         public string Soyad { get; set; }
         public string Uzmanlik { get; set;  }
         //public PersonelMusaitlik PersonelMusaitlik { get; set; }
-        [ForeignKey(nameof(Islem))]
+      //  [ForeignKey(nameof(Islem))]
         public int IslemId { get; set; } 
         public Islem Islem { get; set; }
         public ICollection<PersonelMusaitlik> PersonelMusaitliks { get; set; }

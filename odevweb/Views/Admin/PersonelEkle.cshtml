@@ -1,34 +1,32 @@
-﻿@model odevweb.Models.Personel
-
-@{
-    ViewData["Title"] = "PersonelEkle";
-}
-
-<h1>PersonelEkle</h1>
+﻿@model odevweb.Models.PersonelEkleViewModel
 
 <form asp-action="PersonelEkle" method="post">
     @Html.AntiForgeryToken()
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div> <!-- Hataları gösterir -->
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
     <div class="form-group">
-        <label for="Ad">Ad</label>
-        <input type="text" id="Ad" name="Ad" class="form-control" required />
+        <label asp-for="Personel.Ad" class="control-label">Ad</label>
+        <input asp-for="Personel.Ad" class="form-control" />
+        <span asp-validation-for="Personel.Ad" class="text-danger"></span>
     </div>
+
     <div class="form-group">
-        <label for="Soyad">Soyad</label>
-        <input type="text" id="Soyad" name="Soyad" class="form-control" required />
+        <label asp-for="Personel.Soyad" class="control-label">Soyad</label>
+        <input asp-for="Personel.Soyad" class="form-control" />
+        <span asp-validation-for="Personel.Soyad" class="text-danger"></span>
     </div>
+
     <div class="form-group">
-        <label for="IslemId">Uzmanlık Alanı (İşlem)</label>
-        <select id="IslemId" name="IslemId" class="form-control" required>
+        <label asp-for="Personel.IslemId" class="control-label">Uzmanlık Alanı (İşlem)</label>
+        <select asp-for="Personel.IslemId" class="form-control">
             <option value="">İşlem Seçin</option>
-            @foreach (var islem in ViewBag.Islemler)
+            @foreach (var islem in Model.Islemler)
             {
                 <option value="@islem.IslemId">@islem.Ad</option>
             }
         </select>
+        <span asp-validation-for="Personel.IslemId" class="text-danger"></span>
     </div>
+
     <button type="submit" class="btn btn-primary">Kaydet</button>
 </form>
-
-
-
