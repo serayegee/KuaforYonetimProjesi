@@ -34,12 +34,14 @@ namespace odevweb.Models
                 .HasKey(rp => new { rp.RandevuId, rp.PersonelId });
 
             modelBuilder.Entity<Personel>()
-            .HasOne(p => p.Islem) // Personelin bir işlemi var
+                .HasOne(c => c.Islem)
+                .WithMany(d => d.Personels);
+           /* .HasOne(p => p.Islem) // Personelin bir işlemi var
             .WithMany(i => i.Personels) // Bir işlemin birden fazla personeli olabilir
             .HasForeignKey(p => p.IslemId) // Foreign Key tanımlaması
             .OnDelete(DeleteBehavior.Restrict); // Silme işlemi kısıtlı (işlem silinirse personeller silinmez)
-
-            base.OnModelCreating(modelBuilder);
+           */
+            //base.OnModelCreating(modelBuilder);
         }
 
 

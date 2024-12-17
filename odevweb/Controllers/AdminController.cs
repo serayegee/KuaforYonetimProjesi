@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using odevweb.Models;
 
 namespace odevweb.Controllers
@@ -7,6 +8,8 @@ namespace odevweb.Controllers
     [Authorize(Roles ="Admin")]
     public class AdminController : Controller
     {
+  
+
         public IActionResult Index()
         {
             return View();
@@ -123,85 +126,85 @@ namespace odevweb.Controllers
         [HttpGet]
         public IActionResult PersonelEkle()
         {
-
+           /*
+             using (var context = new KuaforContext())
+             {
+                 // İşlem listesini dropdown için SelectList olarak ViewBag'e gönderiyoruz
+                 ViewBag.IslemId = new SelectList(context.Islems, "IslemId", "Ad");
+                 return View();
+             }*/
+            /*
             using (var context = new KuaforContext())
             {
-                var model = new PersonelEkleViewModel
+                var model = new Personel
                 {
-                    Personel = new Personel(),
+                    personel = new Personel(),
                     Islemler = context.Islems.ToList() // Dropdown için işlemleri al
                 };
                 return View(model);
-            }
-            /* using (var context = new KuaforContext())
+            }*/
+             using (var context = new KuaforContext())
              {
-                 // İşlem listesini dropdown için ViewBag ile gönderiyoruz
-                 ViewBag.Islemler = context.Islems.ToList();
+                // İşlem listesini dropdown için ViewBag ile gönderiyoruz
+                ViewBag.Islemler = context.Islems.ToList();
                  return View();
-             }*/
+             }
 
         }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult PersonelEkle(PersonelEkleViewModel model)
-        {
-            if (model.Personel.IslemId == 0) // İşlem seçilmemişse
-            {
-                ModelState.AddModelError("Personel.IslemId", "Lütfen bir işlem seçin.");
-            }
-
-            if (ModelState.IsValid)
-            {
-                using (var context = new KuaforContext())
-                {
-                    context.Personels.Add(model.Personel);
-                    context.SaveChanges();
-                    return RedirectToAction("PersonelListesi");
-                }
-            }
-
-            // Hata durumunda dropdown'u tekrar doldur
-            using (var context = new KuaforContext())
-            {
-                model.Islemler = context.Islems.ToList();
-            }
-            return View(model);
-        }
-
 
         /*
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult PersonelEkle(Personel model)
         {
-            Console.WriteLine($"Ad: {model.Ad}, Soyad: {model.Soyad}, IslemId: {model.IslemId}");
-
-            if (model.IslemId == 0)
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("IslemId", "Lütfen bir işlem seçin.");
+                using (var context = new KuaforContext())
+                {
+                    // Girilen IslemId'nin veritabanında mevcut olup olmadığını kontrol edin
+                    var islem = context.Islems.FirstOrDefault(i => i.IslemId == model.IslemId);
+                    if (islem == null)
+                    {
+                        ModelState.AddModelError("IslemId", "Geçersiz İşlem ID. Lütfen doğru bir ID girin.");
+                        return View(model);
+                    }
+
+                    // Personel kaydını ekle
+                    context.Personels.Add(model);
+                    context.SaveChanges();
+
+                    return RedirectToAction("PersonelListesi");
+                }
             }
 
+            // Hata durumunda aynı sayfayı döndür
+            return View(model);
+        }
+        */
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult PersonelEkle(Personel model)
+        {
+          
+            
             if (ModelState.IsValid)
             {
                 using (var context = new KuaforContext())
                 {
                     context.Personels.Add(model);
                     context.SaveChanges();
-                    Console.WriteLine("Personel başarıyla kaydedildi.");
                     return RedirectToAction("PersonelListesi");
                 }
             }
 
-            Console.WriteLine("ModelState geçerli değil.");
+            // Hata durumunda dropdown'u doldur
             using (var context = new KuaforContext())
             {
                 ViewBag.Islemler = context.Islems.ToList();
             }
-
             return View(model);
-        }*/
+        }
 
 
         public IActionResult IslemListesi()
