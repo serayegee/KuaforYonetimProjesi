@@ -1,27 +1,29 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using odevweb.Models;
 
 namespace odevweb.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-  
+        KuaforContext _context = new KuaforContext();
+
 
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult AdminPanel() 
+        public IActionResult AdminPanel()
         {
             return View();
         }
 
-        public IActionResult KullaniciListesi() 
-        { 
+        public IActionResult KullaniciListesi()
+        {
             using (var context = new KuaforContext())
             {
                 var kullanicilar = context.Kullanicis.ToList();
@@ -32,16 +34,16 @@ namespace odevweb.Controllers
         [HttpGet]
         public IActionResult KullaniciEkle()
         {
-            return View(); 
+            return View();
         }
 
         [HttpPost]
         public IActionResult KullaniciEkle(Kullanici model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                using (var context = new KuaforContext()) 
-                { 
+                using (var context = new KuaforContext())
+                {
                     context.Kullanicis.Add(model);
                     context.SaveChanges();
                 }
@@ -54,10 +56,10 @@ namespace odevweb.Controllers
         [HttpGet]
         public IActionResult KullaniciDuzenle(int id)
         {
-            using(var context = new KuaforContext()) 
+            using (var context = new KuaforContext())
             {
                 var kullanici = context.Kullanicis.FirstOrDefault(k => k.KullaniciId == id);
-                if(kullanici == null) { return NotFound(); }
+                if (kullanici == null) { return NotFound(); }
                 return View(kullanici);
 
             }
@@ -100,7 +102,7 @@ namespace odevweb.Controllers
             }
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult KullaniciSilConfirmed(int id)
@@ -122,17 +124,17 @@ namespace odevweb.Controllers
                 return RedirectToAction("KullaniciListesi");
             }
         }
-        
-        [HttpGet]
+
+        //[HttpGet]
         public IActionResult PersonelEkle()
         {
-           /*
-             using (var context = new KuaforContext())
-             {
-                 // İşlem listesini dropdown için SelectList olarak ViewBag'e gönderiyoruz
-                 ViewBag.IslemId = new SelectList(context.Islems, "IslemId", "Ad");
-                 return View();
-             }*/
+            /*
+              using (var context = new KuaforContext())
+              {
+                  // İşlem listesini dropdown için SelectList olarak ViewBag'e gönderiyoruz
+                  ViewBag.IslemId = new SelectList(context.Islems, "IslemId", "Ad");
+                  return View();
+              }*/
             /*
             using (var context = new KuaforContext())
             {
@@ -143,12 +145,22 @@ namespace odevweb.Controllers
                 };
                 return View(model);
             }*/
-             using (var context = new KuaforContext())
+            /* using (var context = new KuaforContext())
              {
                 // İşlem listesini dropdown için ViewBag ile gönderiyoruz
                 ViewBag.Islemler = context.Islems.ToList();
                  return View();
-             }
+             }*/
+
+            /* using (var context = new KuaforContext())
+             {
+                 // İşlemleri SelectList'e çevirip ViewBag'e atıyoruz
+                 ViewBag.IslemId = new SelectList(context.Islems, "IslemId", "Ad");
+                 return View();
+             }*/
+
+            ViewData["IslemId"] = new SelectList(_context.Islems, "IslemId", "Ad");
+            return View();
 
         }
 
@@ -184,27 +196,68 @@ namespace odevweb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PersonelEkle([Bind("PersonelId,Ad,Soyad,Uzmanlik")] Personel personel)
+        {
+            if(ModelState.IsValid)
+            {
+                _context.Add(personel);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("PersonelListesi");
+            }
+            ViewData["IslemId"] = new SelectList(_context.Islems, "IslemId", "Ad", personel.IslemId);
+            return View(personel);
+        }
+
+        /*
         public IActionResult PersonelEkle(Personel model)
         {
-          
-            
+
             if (ModelState.IsValid)
             {
                 using (var context = new KuaforContext())
                 {
+                    // İşlem ID'nin geçerli olup olmadığını kontrol et
+                    var islem = context.Islems.FirstOrDefault(i => i.IslemId == model.IslemId);
+                    if (islem == null)
+                    {
+                        ModelState.AddModelError("IslemId", "Geçersiz İşlem ID. Lütfen doğru bir işlem seçin.");
+                        ViewBag.IslemId = new SelectList(context.Islems, "IslemId", "Ad");
+                        return View(model);
+                    }
+
+                    // Personel kaydını ekle
                     context.Personels.Add(model);
                     context.SaveChanges();
+
                     return RedirectToAction("PersonelListesi");
                 }
             }
 
-            // Hata durumunda dropdown'u doldur
+            // Hata durumunda dropdown'u tekrar doldur
             using (var context = new KuaforContext())
             {
-                ViewBag.Islemler = context.Islems.ToList();
+                ViewBag.IslemId = new SelectList(context.Islems, "IslemId", "Ad");
             }
             return View(model);
-        }
+            /*
+
+              if (ModelState.IsValid)
+              {
+                  using (var context = new KuaforContext())
+                  {
+                      context.Personels.Add(model);
+                      context.SaveChanges();
+                      return RedirectToAction("PersonelListesi");
+                  }
+              }
+
+              // Hata durumunda dropdown'u doldur
+              using (var context = new KuaforContext())
+              {
+                  ViewBag.Islemler = context.Islems.ToList();
+              }
+              return View(model);}*/
+        
 
 
         public IActionResult IslemListesi()
@@ -224,6 +277,38 @@ namespace odevweb.Controllers
                 return View(personeller); // Görünümü işlemlerle birlikte döndür
             }
         }
+
+        [HttpGet]
+        public IActionResult PersonelSil(int id)
+        {
+            using (var context = new KuaforContext())
+            {
+                var personel = context.Personels.FirstOrDefault(p => p.PersonelId == id);
+                if (personel == null)
+                {
+                    return NotFound(); // Eğer personel bulunamazsa 404 döndür
+                }
+                return View(personel); // Silmeden önce personeli göster
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult PersonelSilConfirmed(int id)
+        {
+            using (var context = new KuaforContext())
+            {
+                var personel = context.Personels.FirstOrDefault(p => p.PersonelId == id);
+                if (personel != null)
+                {
+                    context.Personels.Remove(personel); // Personeli sil
+                    context.SaveChanges(); // Değişiklikleri kaydet
+                }
+                return RedirectToAction("PersonelListesi"); // Listeye geri dön
+            }
+        }
+
+
 
     }
 }

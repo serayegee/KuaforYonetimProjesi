@@ -17,7 +17,7 @@ namespace odevweb.Models
         //public PersonelMusaitlik PersonelMusaitlik { get; set; }
         [ForeignKey(nameof(Islem))]
 
-        //[Required(ErrorMessage = "Id alanı zorunludur.")]
+        [Required(ErrorMessage = "Id alanı zorunludur.")]
 
         public int IslemId { get; set; } 
         public Islem Islem { get; set; }

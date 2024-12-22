@@ -213,7 +213,7 @@ namespace odevweb.Migrations
                     b.HasOne("odevweb.Models.Islem", "Islem")
                         .WithMany("Personels")
                         .HasForeignKey("IslemId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Islem");

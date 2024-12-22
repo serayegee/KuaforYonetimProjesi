@@ -12,8 +12,8 @@ using odevweb.Models;
 namespace odevweb.Migrations
 {
     [DbContext(typeof(KuaforContext))]
-    [Migration("20241217192742_mig_16")]
-    partial class mig_16
+    [Migration("20241218200842_mig_18")]
+    partial class mig_18
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -215,7 +215,7 @@ namespace odevweb.Migrations
                     b.HasOne("odevweb.Models.Islem", "Islem")
                         .WithMany("Personels")
                         .HasForeignKey("IslemId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Islem");

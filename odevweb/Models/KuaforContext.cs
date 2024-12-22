@@ -11,7 +11,9 @@ namespace odevweb.Models
 {
     public class KuaforContext : DbContext
     {
-    
+        public KuaforContext() { }
+        public KuaforContext(DbContextOptions<KuaforContext> options) : base(options) { } 
+   
         public DbSet<Islem> Islems { get; set; }
         public DbSet<Musteri> Musteris { get; set; }
         public DbSet<Personel> Personels { get; set; }
@@ -24,7 +26,7 @@ namespace odevweb.Models
             optionsBuilder.UseSqlServer("Server=DESKTOP-QQFBS32\\SQLEXPRESS;Database=KuaforDb;Trusted_Connection=True");
         }
 
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<RandevuIslem>()
@@ -33,16 +35,17 @@ namespace odevweb.Models
             modelBuilder.Entity<RandevuPersonel>()
                 .HasKey(rp => new { rp.RandevuId, rp.PersonelId });
 
-            modelBuilder.Entity<Personel>()
+           /* modelBuilder.Entity<Personel>()
                 .HasOne(c => c.Islem)
-                .WithMany(d => d.Personels);
-           /* .HasOne(p => p.Islem) // Personelin bir işlemi var
-            .WithMany(i => i.Personels) // Bir işlemin birden fazla personeli olabilir
+                .WithMany(d => d.Personels)
+           
             .HasForeignKey(p => p.IslemId) // Foreign Key tanımlaması
             .OnDelete(DeleteBehavior.Restrict); // Silme işlemi kısıtlı (işlem silinirse personeller silinmez)
-           */
-            //base.OnModelCreating(modelBuilder);
+           
+            base.OnModelCreating(modelBuilder);*/
         }
+
+       
 
 
     }
