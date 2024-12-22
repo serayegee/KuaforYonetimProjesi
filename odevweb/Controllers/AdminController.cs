@@ -129,7 +129,7 @@ namespace odevweb.Controllers
 
         public async Task<IActionResult> PersonelIndex()
         {
-            var KuaforContext = _context.Personels.Include(p => p.Islem);
+            var KuaforContext = _context.Personels.Include(k => k.Islem);
             return View(await KuaforContext.ToListAsync());
         }
 
@@ -141,7 +141,7 @@ namespace odevweb.Controllers
             }
 
             var personel = await _context.Personels
-                .Include(p => p.Islem)
+                .Include(k => k.Islem)
                 .FirstOrDefaultAsync(m=>m.PersonelId == id);
 
             if(personel==null)
@@ -223,14 +223,23 @@ namespace odevweb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PersonelCreate([Bind("PersonelId,PersonelAd,PersonelSoyad,Uzmanlik, IslemId")] Personel personel)
+        public async Task<IActionResult> PersonelCreate([Bind("PersonelId,PersonelAd,PersonelSoyad, IslemId")] Personel personel)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _context.Add(personel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("PersonelIndex");
             }
+            if (!ModelState.IsValid)
+            {
+                foreach (var modelError in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine(modelError.ErrorMessage);
+                }
+               
+            }
+
             ViewData["IslemId"] = new SelectList(_context.Islems, "IslemId", "IslemAd", personel.IslemId);
             return View(personel);
         }

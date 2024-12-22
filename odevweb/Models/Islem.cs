@@ -16,10 +16,7 @@ namespace odevweb.Models
         public int Sure { get; set; }
         public double Ucret { get; set; }
 
-        //[ForeignKey(nameof(Personel))]
-        //public int PersonelId { get; set; }
-        //public Personel Personel { get; set; }
-        public ICollection<RandevuIslem> Randevus { get; set; }
+        public ICollection<RandevuIslem>? Randevus { get; set; }
 
         public ICollection<Personel>? Personels { get; set; }
     }

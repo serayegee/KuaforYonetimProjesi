@@ -20,7 +20,7 @@ namespace odevweb.Models
         //public PersonelMusaitlik PersonelMusaitlik { get; set; }
         public int IslemId { get; set; } 
         public Islem Islem { get; set; }
-        public ICollection<PersonelMusaitlik> PersonelMusaitliks { get; set; }
-        public ICollection<RandevuPersonel> Randevus { get; set; }
+        public ICollection<PersonelMusaitlik>? PersonelMusaitliks { get; set; }
+        public ICollection<RandevuPersonel>? Randevus { get; set; }
     }
 }
