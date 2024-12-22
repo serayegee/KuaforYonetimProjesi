@@ -26,7 +26,7 @@ namespace odevweb.Models
             optionsBuilder.UseSqlServer("Server=DESKTOP-QQFBS32\\SQLEXPRESS;Database=KuaforDb;Trusted_Connection=True");
         }
 
-        
+        /*
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<RandevuIslem>()
@@ -42,8 +42,8 @@ namespace odevweb.Models
             .HasForeignKey(p => p.IslemId) // Foreign Key tanımlaması
             .OnDelete(DeleteBehavior.Restrict); // Silme işlemi kısıtlı (işlem silinirse personeller silinmez)
            
-            base.OnModelCreating(modelBuilder);*/
-        }
+            base.OnModelCreating(modelBuilder);
+        }*/
 
        
 

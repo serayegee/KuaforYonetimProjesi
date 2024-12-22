@@ -1,0 +1,47 @@
+﻿@model IEnumerable<odevweb.Models.Personel>
+
+@{
+    ViewData["Title"] = "PersonelIndex";
+}
+
+<h1>PersonelIndex</h1>
+
+<p>
+    <a asp-action="PersonelCreate">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonelAd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonelSoyad)
+            </th>
+            <th>
+               @Html.DisplayNameFor(model => model.Islem)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonelAd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonelSoyad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Islem.IslemAd)
+            </td>
+            <td>
+                <a asp-action="PersonelEdit" asp-route-id="@item.PersonelId">Edit</a> |
+                <a asp-action="PersonelDetails" asp-route-id="@item.PersonelId">Details</a> |
+                <a asp-action="PersonelDelete" asp-route-id="@item.PersonelId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

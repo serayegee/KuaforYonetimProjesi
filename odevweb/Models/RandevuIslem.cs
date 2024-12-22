@@ -4,6 +4,8 @@ namespace odevweb.Models
 {
     public class RandevuIslem
     {
+        public int RandevuIslemId { get; set; }
+
         //[ForeignKey(nameof(Islem))]
         public int IslemId { get; set; }
         //[ForeignKey(nameof(Randevu))]

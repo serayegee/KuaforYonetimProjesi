@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.EntityFrameworkCore;
 using odevweb.Models;
 
-KuaforContext context = new();
+//KuaforContext context = new();
 
 //Personel ekleme
 /*
@@ -17,6 +17,8 @@ Personel personel = new()
 
 context.Personels.Add(personel);
 context.SaveChanges();*/
+
+
 
 //Ýþlemleri ekleme
 /*

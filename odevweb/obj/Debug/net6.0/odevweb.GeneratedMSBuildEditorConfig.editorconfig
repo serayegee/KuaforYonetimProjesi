@@ -48,16 +48,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cS3VsbGFuaWNpU2lsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/PC/source/repos/odevweb/odevweb/Views/Admin/PersonelEkle.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGVyc29uZWxFa2xlLmNzaHRtbA==
+[C:/Users/PC/source/repos/odevweb/odevweb/Views/Admin/PersonelCreate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGVyc29uZWxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/PC/source/repos/odevweb/odevweb/Views/Admin/PersonelListesi.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGVyc29uZWxMaXN0ZXNpLmNzaHRtbA==
+[C:/Users/PC/source/repos/odevweb/odevweb/Views/Admin/PersonelDelete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGVyc29uZWxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/PC/source/repos/odevweb/odevweb/Views/Admin/PersonelSil.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGVyc29uZWxTaWwuY3NodG1s
+[C:/Users/PC/source/repos/odevweb/odevweb/Views/Admin/PersonelDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGVyc29uZWxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/PC/source/repos/odevweb/odevweb/Views/Admin/PersonelEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGVyc29uZWxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/PC/source/repos/odevweb/odevweb/Views/Admin/PersonelIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGVyc29uZWxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/PC/source/repos/odevweb/odevweb/Views/Home/Hizmetlerimiz.cshtml]

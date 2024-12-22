@@ -1,0 +1,43 @@
+﻿@model odevweb.Models.Personel
+
+@{
+    ViewData["Title"] = "PersonelDetails";
+}
+
+<h1>PersonelDetails</h1>
+
+<div>
+    <h4>Personel</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PersonelAd)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PersonelAd)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PersonelSoyad)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PersonelSoyad)
+        </dd>
+        <!--
+        <dt class = "col-sm-2">
+            Html.DisplayNameFor(model => model.Uzmanlik)
+        </dt>
+        <dd class = "col-sm-10">
+            Html.DisplayFor(model => model.Uzmanlik)
+        </dd>-->
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Islem)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Islem.IslemAd)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="PersonelEdit" asp-route-id="@Model?.PersonelId">Edit</a> |
+    <a asp-action="PersonelIndex">Back to List</a>
+</div>

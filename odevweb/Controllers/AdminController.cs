@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using odevweb.Models;
+using System.Drawing;
 
 namespace odevweb.Controllers
 {
@@ -125,8 +127,33 @@ namespace odevweb.Controllers
             }
         }
 
+        public async Task<IActionResult> PersonelIndex()
+        {
+            var KuaforContext = _context.Personels.Include(p => p.Islem);
+            return View(await KuaforContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> PersonelDetails(int? id)
+        {
+            if(id == null || _context.Personels==null)
+            {
+                return NotFound();
+            }
+
+            var personel = await _context.Personels
+                .Include(p => p.Islem)
+                .FirstOrDefaultAsync(m=>m.PersonelId == id);
+
+            if(personel==null)
+            {
+                return NotFound();
+            }
+
+            return View(personel);
+        }
+
         //[HttpGet]
-        public IActionResult PersonelEkle()
+        public IActionResult PersonelCreate()
         {
             /*
               using (var context = new KuaforContext())
@@ -159,7 +186,7 @@ namespace odevweb.Controllers
                  return View();
              }*/
 
-            ViewData["IslemId"] = new SelectList(_context.Islems, "IslemId", "Ad");
+            ViewData["IslemId"] = new SelectList(_context.Islems, "IslemId", "IslemAd");
             return View();
 
         }
@@ -196,17 +223,106 @@ namespace odevweb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PersonelEkle([Bind("PersonelId,Ad,Soyad,Uzmanlik")] Personel personel)
+        public async Task<IActionResult> PersonelCreate([Bind("PersonelId,PersonelAd,PersonelSoyad,Uzmanlik, IslemId")] Personel personel)
         {
             if(ModelState.IsValid)
             {
                 _context.Add(personel);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("PersonelListesi");
+                return RedirectToAction("PersonelIndex");
             }
-            ViewData["IslemId"] = new SelectList(_context.Islems, "IslemId", "Ad", personel.IslemId);
+            ViewData["IslemId"] = new SelectList(_context.Islems, "IslemId", "IslemAd", personel.IslemId);
             return View(personel);
         }
+
+        public async Task<IActionResult> PersonelEdit(int? id)
+        {
+            if (id == null || _context.Personels == null)
+            {
+                return NotFound();
+            }
+
+            var personel = await _context.Personels.FindAsync(id);
+            if (personel == null) { return NotFound(); }
+
+            ViewData["IslemId"] = new SelectList(_context.Islems, "IslemId", "IslemAd", personel.IslemId);
+            return View(personel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PersonelEdit(int id, [Bind("PersonelId,PersonelAd,IslemId")] Personel personel)
+        {
+            if (id != personel.PersonelId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(personel);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PersonelExists(personel.PersonelId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(PersonelIndex));
+            }
+            ViewData["IslemId"] = new SelectList(_context.Islems, "IslemId", "IslemAd", personel.IslemId);
+            return View(personel);
+        }
+
+        public async Task<IActionResult> PersonelDelete(int? id)
+        {
+            if (id == null || _context.Personels == null)
+            {
+                return NotFound();
+            }
+
+            var personel = await _context.Personels
+                .Include(k => k.Islem)
+                .FirstOrDefaultAsync(m => m.PersonelId == id);
+            if (personel == null)
+            {
+                return NotFound();
+            }
+
+            return View(personel);
+        }
+
+        [HttpPost, ActionName("PersonelDelete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PersonelDeleteConfirmed(int id)
+        {
+            if (_context.Personels == null)
+            {
+                return Problem("Entity set 'KuaforContext.Personels'  is null.");
+            }
+            var personel = await _context.Personels.FindAsync(id);
+            if (personel != null)
+            {
+                _context.Personels.Remove(personel);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("PersonelIndex");
+        }
+
+        private bool PersonelExists(int id)
+        {
+            return (_context.Personels?.Any(e => e.PersonelId == id)).GetValueOrDefault();
+        }
+
 
         /*
         public IActionResult PersonelEkle(Personel model)
@@ -257,7 +373,7 @@ namespace odevweb.Controllers
                   ViewBag.Islemler = context.Islems.ToList();
               }
               return View(model);}*/
-        
+
 
 
         public IActionResult IslemListesi()
@@ -269,6 +385,8 @@ namespace odevweb.Controllers
             }
         }
 
+
+        /*
         public IActionResult PersonelListesi()
         {
             using (var context = new KuaforContext())
@@ -306,7 +424,7 @@ namespace odevweb.Controllers
                 }
                 return RedirectToAction("PersonelListesi"); // Listeye geri dön
             }
-        }
+        }*/
 
 
 

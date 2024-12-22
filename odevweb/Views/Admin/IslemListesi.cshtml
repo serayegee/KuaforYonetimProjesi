@@ -6,40 +6,44 @@
 
 <h1>IslemListesi</h1>
 
+<!--
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Ad)
+                Html.DisplayNameFor(model => model.Ad)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Sure)
+                Html.DisplayNameFor(model => model.Sure)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ucret)
+                Httml.DisplayNameFor(model => model.Ucret)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Ad)
+                Html.DisplayFor(modelItem => item.Ad)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Sure)
+                Html.DisplayFor(modelItem => item.Sure)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Ucret)
+                Html.DisplayFor(modelItem => item.Ucret)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IslemId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IslemId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IslemId">Delete</a>
+                <a asp-action="Edit" asp-route-id="item.IslemId">Edit</a> |
+                <a asp-action="Details" asp-route-id="item.IslemId">Details</a> |
+                <a asp-action="Delete" asp-route-id="item.IslemId">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+html ve foreaxh önünde at var
+-->

@@ -5,20 +5,19 @@ namespace odevweb.Models
 {
     public class Personel
     {
+        [Key]
         public int PersonelId { get; set; }
         [Required(ErrorMessage = "Ad alanı zorunludur.")]
+        [MaxLength(100)]
+        [Display(Name = "Personel Adı ")]
 
-        public string Ad { get; set; }
+        public string PersonelAd { get; set; }
 
         [Required(ErrorMessage = "Soyad alanı zorunludur.")]
 
-        public string Soyad { get; set; }
-        public string Uzmanlik { get; set;  }
+        public string PersonelSoyad { get; set; }
+        //public string Uzmanlik { get; set;  }
         //public PersonelMusaitlik PersonelMusaitlik { get; set; }
-        [ForeignKey(nameof(Islem))]
-
-        [Required(ErrorMessage = "Id alanı zorunludur.")]
-
         public int IslemId { get; set; } 
         public Islem Islem { get; set; }
         public ICollection<PersonelMusaitlik> PersonelMusaitliks { get; set; }
