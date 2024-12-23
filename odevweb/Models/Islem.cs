@@ -9,10 +9,7 @@ namespace odevweb.Models
     public class Islem
     {
         public int IslemId { get; set; }
-        [Required]
-        [MaxLength(100)]
-        [Display(Name = "Islem Ad")]
-        public string IslemAd { get; set; }
+        public string? IslemAd { get; set; }
         public int Sure { get; set; }
         public double Ucret { get; set; }
 

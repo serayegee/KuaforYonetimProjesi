@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using odevweb.Models;
 
@@ -11,9 +12,10 @@ using odevweb.Models;
 namespace odevweb.Migrations
 {
     [DbContext(typeof(KuaforContext))]
-    partial class KuaforContextModelSnapshot : ModelSnapshot
+    [Migration("20241223180750_mig_20islemlerpersonellertablosu")]
+    partial class mig_20islemlerpersonellertablosu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,7 +33,9 @@ namespace odevweb.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IslemId"), 1L, 1);
 
                     b.Property<string>("IslemAd")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("Sure")
                         .HasColumnType("int");
@@ -41,7 +45,30 @@ namespace odevweb.Migrations
 
                     b.HasKey("IslemId");
 
-                    b.ToTable("Islems");
+                    b.ToTable("Islem");
+                });
+
+            modelBuilder.Entity("odevweb.Models.Islemler", b =>
+                {
+                    b.Property<int>("IslemlerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IslemlerId"), 1L, 1);
+
+                    b.Property<string>("IslemAd")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Sure")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Ucret")
+                        .HasColumnType("float");
+
+                    b.HasKey("IslemlerId");
+
+                    b.ToTable("Islemlerr");
                 });
 
             modelBuilder.Entity("odevweb.Models.Kullanici", b =>
@@ -104,6 +131,9 @@ namespace odevweb.Migrations
                     b.Property<int>("IslemId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("IslemlerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("PersonelAd")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -117,7 +147,35 @@ namespace odevweb.Migrations
 
                     b.HasIndex("IslemId");
 
-                    b.ToTable("Personels");
+                    b.HasIndex("IslemlerId");
+
+                    b.ToTable("Personel");
+                });
+
+            modelBuilder.Entity("odevweb.Models.Personeller", b =>
+                {
+                    b.Property<int>("PersonellerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonellerId"), 1L, 1);
+
+                    b.Property<int>("IslemlerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PersonelAd")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PersonelSoyad")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PersonellerId");
+
+                    b.HasIndex("IslemlerId");
+
+                    b.ToTable("Personellerr");
                 });
 
             modelBuilder.Entity("odevweb.Models.PersonelMusaitlik", b =>
@@ -137,12 +195,17 @@ namespace odevweb.Migrations
                     b.Property<int>("PersonelId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PersonellerId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Tarih")
                         .HasColumnType("datetime2");
 
                     b.HasKey("PersonelMusaitlikId");
 
                     b.HasIndex("PersonelId");
+
+                    b.HasIndex("PersonellerId");
 
                     b.ToTable("PersonelMusaitliks");
                 });
@@ -185,12 +248,17 @@ namespace odevweb.Migrations
                     b.Property<int>("IslemId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("IslemlerId")
+                        .HasColumnType("int");
+
                     b.Property<int>("RandevuId")
                         .HasColumnType("int");
 
                     b.HasKey("RandevuIslemId");
 
                     b.HasIndex("IslemId");
+
+                    b.HasIndex("IslemlerId");
 
                     b.HasIndex("RandevuId");
 
@@ -208,12 +276,17 @@ namespace odevweb.Migrations
                     b.Property<int>("PersonelId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PersonellerId")
+                        .HasColumnType("int");
+
                     b.Property<int>("RandevuId")
                         .HasColumnType("int");
 
                     b.HasKey("RandevuPersonelId");
 
                     b.HasIndex("PersonelId");
+
+                    b.HasIndex("PersonellerId");
 
                     b.HasIndex("RandevuId");
 
@@ -228,7 +301,22 @@ namespace odevweb.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("odevweb.Models.Islemler", null)
+                        .WithMany("Personellerr")
+                        .HasForeignKey("IslemlerId");
+
                     b.Navigation("Islem");
+                });
+
+            modelBuilder.Entity("odevweb.Models.Personeller", b =>
+                {
+                    b.HasOne("odevweb.Models.Islem", "Islemler")
+                        .WithMany()
+                        .HasForeignKey("IslemlerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Islemler");
                 });
 
             modelBuilder.Entity("odevweb.Models.PersonelMusaitlik", b =>
@@ -238,6 +326,10 @@ namespace odevweb.Migrations
                         .HasForeignKey("PersonelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("odevweb.Models.Personeller", null)
+                        .WithMany("PersonelMusaitliks")
+                        .HasForeignKey("PersonellerId");
 
                     b.Navigation("Personel");
                 });
@@ -261,6 +353,10 @@ namespace odevweb.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("odevweb.Models.Islemler", null)
+                        .WithMany("Randevus")
+                        .HasForeignKey("IslemlerId");
+
                     b.HasOne("odevweb.Models.Randevu", "Randevu")
                         .WithMany("Islems")
                         .HasForeignKey("RandevuId")
@@ -280,6 +376,10 @@ namespace odevweb.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("odevweb.Models.Personeller", null)
+                        .WithMany("Randevus")
+                        .HasForeignKey("PersonellerId");
+
                     b.HasOne("odevweb.Models.Randevu", "Randevu")
                         .WithMany("Personels")
                         .HasForeignKey("RandevuId")
@@ -298,12 +398,26 @@ namespace odevweb.Migrations
                     b.Navigation("Randevus");
                 });
 
+            modelBuilder.Entity("odevweb.Models.Islemler", b =>
+                {
+                    b.Navigation("Personellerr");
+
+                    b.Navigation("Randevus");
+                });
+
             modelBuilder.Entity("odevweb.Models.Musteri", b =>
                 {
                     b.Navigation("Randevus");
                 });
 
             modelBuilder.Entity("odevweb.Models.Personel", b =>
+                {
+                    b.Navigation("PersonelMusaitliks");
+
+                    b.Navigation("Randevus");
+                });
+
+            modelBuilder.Entity("odevweb.Models.Personeller", b =>
                 {
                     b.Navigation("PersonelMusaitliks");
 

@@ -152,7 +152,7 @@ namespace odevweb.Controllers
             return View(personel);
         }
 
-        //[HttpGet]
+        [HttpGet]
         public IActionResult PersonelCreate()
         {
             /*
@@ -260,7 +260,7 @@ namespace odevweb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PersonelEdit(int id, [Bind("PersonelId,PersonelAd,IslemId")] Personel personel)
+        public async Task<IActionResult> PersonelEdit(int id, [Bind("PersonelId,PersonelAd, PersonelSoyad, IslemId")] Personel personel)
         {
             if (id != personel.PersonelId)
             {
@@ -384,7 +384,7 @@ namespace odevweb.Controllers
               return View(model);}*/
 
 
-
+        /*
         public IActionResult IslemListesi()
         {
             using (var context = new KuaforContext())
@@ -392,6 +392,72 @@ namespace odevweb.Controllers
                 var islemler = context.Islems.ToList(); // Veritabanından işlemleri çek
                 return View(islemler); // Görünümü işlemlerle birlikte döndür
             }
+        }*/
+
+        public IActionResult IslemIndex()
+        {
+            var islemler = _context.Islems.ToList();
+            return View(islemler);
+        
+        }
+
+        public IActionResult IslemCreate()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult IslemKaydet(Islem i) 
+        {
+            if(ModelState.IsValid)
+            {
+                _context.Islems.Add(i);
+                _context.SaveChanges();
+                return RedirectToAction("IslemIndex");
+            }
+            return RedirectToAction("IslemCreate");
+        }
+
+        [HttpGet]
+        public IActionResult IslemDelete(int id)
+        {
+            // İşlem verisini almak için veritabanına bağlanıyoruz
+            var islem = _context.Islems.FirstOrDefault(i => i.IslemId == id);
+            if (islem == null)
+            {
+                return NotFound(); // İşlem bulunamazsa 404 döndür
+            }
+            return View(islem); // İşlem verisiyle silme sayfasını göster
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult IslemDeleteConfirmed(int id)
+        {
+            Console.WriteLine($"Silinmek istenen IslemId: {id}");
+
+            var islem = _context.Islems.FirstOrDefault(i => i.IslemId == id);
+            if (islem == null)
+            {
+                Console.WriteLine("İşlem bulunamadı!");
+                return RedirectToAction("IslemIndex");
+            }
+
+            _context.Islems.Remove(islem);
+            _context.SaveChanges();
+
+            Console.WriteLine("İşlem başarıyla silindi!");
+            return RedirectToAction("IslemIndex");
+            /*
+            // İşlem verisini alıp silme işlemini gerçekleştiriyoruz
+            var islemler = _context.Islems.FirstOrDefault(i => i.IslemId == id);
+            if (islemler != null)
+            {
+                _context.Islems.Remove(islemler);
+                _context.SaveChanges(); // Değişiklikleri veritabanına kaydet
+            }
+            return RedirectToAction("IslemIndex"); // Listeye geri dön*/
         }
 
 

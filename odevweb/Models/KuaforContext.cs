@@ -44,9 +44,16 @@ namespace odevweb.Models
            
             base.OnModelCreating(modelBuilder);
         }*/
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
 
-       
+          modelBuilder.Entity<Personel>()
+        .HasOne(p => p.Islem)
+        .WithMany(i => i.Personels)
+        .HasForeignKey(p => p.IslemId)
+        .OnDelete(DeleteBehavior.Cascade); // Alternatif olarak SetNull kullanılabilir
 
+        }
 
     }
 
