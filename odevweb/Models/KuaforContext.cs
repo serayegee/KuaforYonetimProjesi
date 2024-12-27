@@ -21,6 +21,8 @@ namespace odevweb.Models
         public DbSet<Randevu> Randevus { get; set; }
         public DbSet<RandevuIslem> RandevuIslems { get;}
         public DbSet<Kullanici> Kullanicis { get; set; }
+        public DbSet<RandevuPersonel> RandevuPersonels { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=DESKTOP-QQFBS32\\SQLEXPRESS;Database=KuaforDb;Trusted_Connection=True");

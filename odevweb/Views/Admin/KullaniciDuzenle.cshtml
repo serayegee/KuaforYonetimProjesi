@@ -4,6 +4,7 @@
     ViewData["Title"] = "KullaniciDuzenle";
 }
 
+<!--
 <h1>KullaniciDuzenle</h1>
 
 <h4>Kullanici</h4>
@@ -25,7 +26,7 @@
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsAdmin" /> @Html.DisplayNameFor(model => model.IsAdmin)
+                    <input class="form-check-input" asp-for="IsAdmin" /> Html.DisplayNameFor(model => model.IsAdmin)
                 </label>
             </div>
             <div class="form-group">
@@ -42,6 +43,62 @@
 
 <div>
     <a asp-action="Index">Back to List</a>
+</div>
+-->
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4 text-secondary">Kullanıcı Düzenle</h2>
+
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <form asp-action="KullaniciDuzenle">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="KullaniciId" />
+
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="KullaniciAdi" class="form-label">Kullanıcı Adı</label>
+                    <input asp-for="KullaniciAdi" class="form-control" placeholder="Kullanıcı adını giriniz" />
+                    <span asp-validation-for="KullaniciAdi" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Sifre" class="form-label">Şifre</label>
+                    <input asp-for="Sifre" type="password" class="form-control" placeholder="Şifreyi giriniz" />
+                    <span asp-validation-for="Sifre" class="text-danger"></span>
+                </div>
+
+                <div class="form-group form-check mb-3">
+                    <input asp-for="IsAdmin" class="form-check-input" />
+                    <label asp-for="IsAdmin" class="form-check-label">Admin mi?</label>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Ad" class="form-label">Ad</label>
+                    <input asp-for="Ad" class="form-control" placeholder="Adınızı giriniz" />
+                    <span asp-validation-for="Ad" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Soyad" class="form-label">Soyad</label>
+                    <input asp-for="Soyad" class="form-control" placeholder="Soyadınızı giriniz" />
+                    <span asp-validation-for="Soyad" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Telefon" class="form-label">Telefon</label>
+                    <input asp-for="Telefon" class="form-control" placeholder="Telefon numaranızı giriniz" />
+                    <span asp-validation-for="Telefon" class="text-danger"></span>
+                </div>
+
+                <div class="text-center mt-4">
+                    <input type="submit" value="Kaydet" class="btn btn-success btn-lg" />
+                    <a asp-action="KullaniciListesi" class="btn btn-secondary btn-lg ms-3">Kullanıcı Listesi</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

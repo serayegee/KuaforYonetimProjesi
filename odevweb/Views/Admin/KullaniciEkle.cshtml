@@ -4,10 +4,11 @@
 @{
 }
 
+<!--
 <h2>Yeni Kullanıcı Ekle</h2>
 
 <form asp-action="KullaniciEkle" method="post">
-    @Html.AntiForgeryToken()
+    Html.AntiForgeryToken()
     <div class="form-group">
         <label for="Ad">Ad</label>
         <input type="text" id="Ad" name="Ad" class="form-control" required />
@@ -26,3 +27,52 @@
     </div>
     <button type="submit" class="btn btn-primary">Kaydet</button>
 </form>
+-->
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Yeni Kullanıcı Ekle</h2>
+
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <form asp-action="KullaniciEkle" method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="form-group mb-3">
+                    <label for="Ad" class="form-label">Ad</label>
+                    <input type="text" id="Ad" name="Ad" class="form-control" placeholder="Ad giriniz" required />
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="KullaniciAdi" class="form-label">Kullanıcı Adı</label>
+                    <input type="text" id="KullaniciAdi" name="KullaniciAdi" class="form-control" placeholder="E-posta adresi giriniz" required />
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="Sifre" class="form-label">Şifre</label>
+                    <input type="password" id="Sifre" name="Sifre" class="form-control" placeholder="Şifre giriniz" required />
+                </div>
+
+                <div class="form-group form-check mb-4">
+                    <input type="checkbox" id="IsAdmin" name="IsAdmin" value="true" class="form-check-input" />
+                    <label for="IsAdmin" class="form-check-label">Admin mi?</label>
+                </div>
+
+                <!-- Soyad -->
+                <div class="form-group mb-3">
+                    <label for="Soyad" class="form-label">Soyad</label>
+                    <input type="text" id="Soyad" name="Soyad" class="form-control" placeholder="Soyad giriniz" required />
+                </div>
+
+                <!-- Telefon -->
+                <div class="form-group mb-3">
+                    <label for="Telefon" class="form-label">Telefon</label>
+                    <input type="text" id="Telefon" name="Telefon" class="form-control" placeholder="Telefon numarasını giriniz" required />
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success btn-lg">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

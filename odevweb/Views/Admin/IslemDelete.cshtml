@@ -4,12 +4,14 @@
     ViewData["Title"] = "IslemDelete";
 }
 
-
+<!--
 <p>Bu işlemi silmek istediğinizden emin misiniz?</p>
 
 <div>
     <strong>@Model.IslemAd</strong> (@Model.Sure dakika, @Model.Ucret ₺)
 </div>
+-->
+
 <!--
 <h1>IslemDelete</h1>
 
@@ -38,14 +40,37 @@
         </dd>
     </dl>-->
     
+<!--
+<div>
     <form asp-action="IslemDeleteConfirmed" method="post">
         @Html.AntiForgeryToken()
-        <input type="hidden" asp-for="IslemId" />
+        <input type="hidden" name="id" value="@Model.IslemId" />
         <button type="submit" class="btn btn-danger">Sil</button>
         <a asp-action="IslemIndex" class="btn btn-secondary">İptal</a>
     </form>
 
 </div>
+-->
 
+<div class="container mt-5">
+    <h2 class="text-center text-danger">İşlem Silme</h2>
+
+    <div class="card shadow-lg mt-4">
+        <div class="card-body">
+            <p>Bu işlemi silmek istediğinizden emin misiniz?</p>
+            <div class="mb-3">
+                <strong>@Model.IslemAd</strong> (@Model.Sure dakika, @Model.Ucret ₺)
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <form asp-action="IslemDeleteConfirmed" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@Model.IslemId" />
+                <button type="submit" class="btn btn-danger me-2">Sil</button>
+                <a asp-action="IslemIndex" class="btn btn-secondary">İptal</a>
+            </form>
+        </div>
+    </div>
+</div>
 
 

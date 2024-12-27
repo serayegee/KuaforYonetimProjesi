@@ -4,6 +4,7 @@
     ViewData["Title"] = "PersonelDetails";
 }
 
+<!--
 <h1>PersonelDetails</h1>
 
 <div>
@@ -22,13 +23,6 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.PersonelSoyad)
         </dd>
-        <!--
-        <dt class = "col-sm-2">
-            Html.DisplayNameFor(model => model.Uzmanlik)
-        </dt>
-        <dd class = "col-sm-10">
-            Html.DisplayFor(model => model.Uzmanlik)
-        </dd>-->
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Islem)
         </dt>
@@ -40,4 +34,32 @@
 <div>
     <a asp-action="PersonelEdit" asp-route-id="@Model?.PersonelId">Edit</a> |
     <a asp-action="PersonelIndex">Back to List</a>
+</div>
+-->
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4 text-primary">Personel Detayları</h2>
+
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <h4 class="text-secondary">Personel Bilgileri</h4>
+            <hr />
+
+            <dl class="row">
+                <dt class="col-sm-3 fw-bold">Ad</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.PersonelAd)</dd>
+
+                <dt class="col-sm-3 fw-bold">Soyad</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.PersonelSoyad)</dd>
+
+                <dt class="col-sm-3 fw-bold">İşlem</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Islem.IslemAd)</dd>
+            </dl>
+        </div>
+
+        <div class="card-footer text-center">
+            <a asp-action="PersonelEdit" asp-route-id="@Model?.PersonelId" class="btn btn-primary me-2">Düzenle</a>
+            <a asp-action="PersonelIndex" class="btn btn-secondary">Listeye Dön</a>
+        </div>
+    </div>
 </div>

@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "PersonelDelete";
 }
-
+<!--
 <h1>PersonelDelete</h1>
 
 <h3>Are you sure you want to delete this?</h3>
@@ -23,13 +23,6 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.PersonelSoyad)
         </dd>
-        <!--
-        <dt class = "col-sm-2">
-            Html.DisplayNameFor(model => model.Uzmanlik)
-        </dt>
-        <dd class = "col-sm-10">
-            Html.DisplayFor(model => model.Uzmanlik)
-        </dd>-->
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Islem)
         </dt>
@@ -43,4 +36,35 @@
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="PersonelIndex">Back to List</a>
     </form>
+</div>
+-->
+
+<div class="container mt-5">
+    <h2 class="text-center text-danger">Personel Sil</h2>
+
+    <div class="card shadow-lg mt-4">
+        <div class="card-body">
+            <h4 class="text-secondary">Bu personeli silmek istediğinizden emin misiniz?</h4>
+            <hr />
+
+            <dl class="row">
+                <dt class="col-sm-3 fw-bold">Ad</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.PersonelAd)</dd>
+
+                <dt class="col-sm-3 fw-bold">Soyad</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.PersonelSoyad)</dd>
+
+                <dt class="col-sm-3 fw-bold">İşlem</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Islem.IslemAd)</dd>
+            </dl>
+        </div>
+
+        <div class="card-footer text-center">
+            <form asp-action="PersonelDelete" method="post" class="d-inline">
+                <input type="hidden" asp-for="PersonelId" />
+                <button type="submit" class="btn btn-danger me-2">Sil</button>
+            </form>
+            <a asp-action="PersonelIndex" class="btn btn-secondary">İptal</a>
+        </div>
+    </div>
 </div>

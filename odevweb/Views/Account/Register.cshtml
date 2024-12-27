@@ -6,10 +6,9 @@
 
 @model odevweb.Models.Kullanici
 
-<h2>Üye Ol</h2>
-
+<!--
 <form asp-action="Register" method="post">
-    @Html.AntiForgeryToken()
+    Html.AntiForgeryToken()
     <div class="form-group">
         <label for="Ad">Ad</label>
         <input type="text" id="Ad" name="Ad" class="form-control" required />
@@ -24,3 +23,52 @@
     </div>
     <button type="submit" class="btn btn-primary">Üye Ol</button>
 </form>
+-->
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center mb-4">Üye Ol</h2>
+
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <form asp-action="Register" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group">
+                            <label for="Ad">Ad</label>
+                            <input type="text" id="Ad" name="Ad" class="form-control" required placeholder="Adınızı Girin" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Soyad">Soyad</label>
+                            <input type="text" id="Soyad" name="Soyad" class="form-control" placeholder="Soyadınızı Girin" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="KullaniciAdi">Kullanıcı Adı (E-posta)</label>
+                            <input type="email" id="KullaniciAdi" name="KullaniciAdi" class="form-control" required placeholder="E-posta adresinizi girin" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Sifre">Şifre</label>
+                            <input type="password" id="Sifre" name="Sifre" class="form-control" required placeholder="Şifrenizi girin" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Telefon">Telefon</label>
+                            <input type="text" id="Telefon" name="Telefon" class="form-control" placeholder="Telefon numaranızı girin" pattern="^\+90\d{10}$" 
+                            title="Telefon numarası +90 ile başlayıp 10 rakamdan oluşmalıdır." required />
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block mt-4">Üye Ol</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <p>Zaten üye misiniz? <a href="/Account/Login" class="btn btn-link">Giriş Yap</a></p>
+            </div>
+        </div>
+    </div>
+</div>

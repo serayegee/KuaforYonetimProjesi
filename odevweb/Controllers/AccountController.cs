@@ -199,7 +199,9 @@ namespace odevweb.Controllers
                     KullaniciAdi = model.KullaniciAdi,
                     Sifre = model.Sifre, // Şifre hashlenebilir
                     IsAdmin = false, // Yeni kullanıcılar admin değil
-                    Ad = model.Ad // Ad alanını kaydediyoruz
+                    Ad = model.Ad, // Ad alanını kaydediyoruz
+                    Soyad = model.Soyad,
+                    Telefon = model.Telefon
                 };
 
                 _context.Kullanicis.Add(yeniKullanici);

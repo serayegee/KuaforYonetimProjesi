@@ -1,0 +1,83 @@
+﻿@model odevweb.Models.Islem
+
+@{
+    ViewData["Title"] = "IslemEdit";
+}
+
+<!--
+<h1>IslemEdit</h1>
+
+<h4>Islem</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="IslemEdit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IslemId" />
+            <div class="form-group">
+                <label asp-for="IslemAd" class="control-label"></label>
+                <input asp-for="IslemAd" class="form-control" />
+                <span asp-validation-for="IslemAd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sure" class="control-label"></label>
+                <input asp-for="Sure" class="form-control" />
+                <span asp-validation-for="Sure" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ucret" class="control-label"></label>
+                <input asp-for="Ucret" class="form-control" />
+                <span asp-validation-for="Ucret" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="IslemIndex">Back to List</a>
+</div>
+-->
+
+<div class="container mt-5">
+    <h2 class="text-center text-secondary">İşlem Düzenle</h2>
+
+    <div class="card shadow-lg mt-4">
+        <div class="card-body">
+            <form asp-action="IslemEdit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="IslemId" />
+
+                <div class="mb-3">
+                    <label asp-for="IslemAd" class="form-label fw-bold">İşlem Adı</label>
+                    <input asp-for="IslemAd" class="form-control" />
+                    <span asp-validation-for="IslemAd" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Sure" class="form-label fw-bold">Süre (dk)</label>
+                    <input asp-for="Sure" class="form-control" />
+                    <span asp-validation-for="Sure" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Ucret" class="form-label fw-bold">Ücret (₺)</label>
+                    <input asp-for="Ucret" class="form-control" />
+                    <span asp-validation-for="Ucret" class="text-danger"></span>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success me-2">Kaydet</button>
+                    <a asp-action="IslemIndex" class="btn btn-secondary">Geri Dön</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

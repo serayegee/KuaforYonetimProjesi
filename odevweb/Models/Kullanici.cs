@@ -15,5 +15,10 @@ namespace odevweb.Models
 
         public bool IsAdmin { get; set; }
         public string Ad { get; set; }
+        public string? Soyad { get; set; } // Opsiyonel
+        public string? Telefon { get; set; } // Opsiyonel
+        public ICollection<Randevu>? Randevus { get; set; }
+
+
     }
 }

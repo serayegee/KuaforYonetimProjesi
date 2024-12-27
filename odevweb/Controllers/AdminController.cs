@@ -81,6 +81,8 @@ namespace odevweb.Controllers
                         kullanici.KullaniciAdi = model.KullaniciAdi;
                         kullanici.Sifre = model.Sifre; // Şifreyi hashlemek gerekebilir
                         kullanici.IsAdmin = model.IsAdmin;
+                        kullanici.Soyad = model.Soyad;
+                        kullanici.Telefon = model.Telefon;
 
                         context.SaveChanges();
                         return RedirectToAction("KullaniciListesi");
@@ -420,7 +422,50 @@ namespace odevweb.Controllers
         }
 
         [HttpGet]
-        public IActionResult IslemDelete(int id)
+        public IActionResult IslemEdit(int id)
+        {
+            var islem = _context.Islems.FirstOrDefault(i => i.IslemId == id);
+            if (islem == null)
+            {
+                return NotFound();
+            }
+            return View(islem);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult IslemEdit(Islem islem)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingIslem = _context.Islems.FirstOrDefault(i => i.IslemId == islem.IslemId);
+                if (existingIslem != null)
+                {
+                    existingIslem.IslemAd = islem.IslemAd;
+                    existingIslem.Sure = islem.Sure;
+                    existingIslem.Ucret = islem.Ucret;
+
+                    _context.SaveChanges();
+                    return RedirectToAction("IslemIndex");
+                }
+            }
+            return View(islem);
+        }
+
+        [HttpGet]
+        public IActionResult IslemDetails(int id)
+        {
+            var islem = _context.Islems.FirstOrDefault(i => i.IslemId == id);
+            if (islem == null)
+            {
+                return NotFound();
+            }
+            return View(islem);
+        }
+
+
+        [HttpGet]
+        public IActionResult IslemDelete(int? id)
         {
             // İşlem verisini almak için veritabanına bağlanıyoruz
             var islem = _context.Islems.FirstOrDefault(i => i.IslemId == id);

@@ -9,9 +9,11 @@ namespace odevweb.Models
         public TimeSpan Saat { get; set; }
         public double ToplamUcret { get; set; }
 
-        [ForeignKey(nameof(Musteri))]
-        public int MusteriId { get; set; }
-        public Musteri Musteri { get; set; } = null!;
+        [ForeignKey(nameof(Kullanici))]
+        public int KullaniciId { get; set; }
+        public Kullanici Kullanici { get; set; }
+
+        //public Musteri Musteri { get; set; } = null!;
         public ICollection<RandevuIslem> Islems { get; set; }
         public ICollection<RandevuPersonel> Personels { get; set; }
     }
