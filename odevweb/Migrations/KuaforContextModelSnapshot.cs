@@ -161,10 +161,16 @@ namespace odevweb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RandevuId"), 1L, 1);
 
+                    b.Property<int>("IslemId")
+                        .HasColumnType("int");
+
                     b.Property<int>("KullaniciId")
                         .HasColumnType("int");
 
                     b.Property<int?>("MusteriId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PersonelId")
                         .HasColumnType("int");
 
                     b.Property<TimeSpan>("Saat")
@@ -173,62 +179,17 @@ namespace odevweb.Migrations
                     b.Property<DateTime>("Tarih")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("ToplamUcret")
-                        .HasColumnType("float");
-
                     b.HasKey("RandevuId");
+
+                    b.HasIndex("IslemId");
 
                     b.HasIndex("KullaniciId");
 
                     b.HasIndex("MusteriId");
 
-                    b.ToTable("Randevus");
-                });
-
-            modelBuilder.Entity("odevweb.Models.RandevuIslem", b =>
-                {
-                    b.Property<int>("RandevuIslemId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RandevuIslemId"), 1L, 1);
-
-                    b.Property<int>("IslemId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RandevuId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RandevuIslemId");
-
-                    b.HasIndex("IslemId");
-
-                    b.HasIndex("RandevuId");
-
-                    b.ToTable("RandevuIslems");
-                });
-
-            modelBuilder.Entity("odevweb.Models.RandevuPersonel", b =>
-                {
-                    b.Property<int>("RandevuPersonelId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RandevuPersonelId"), 1L, 1);
-
-                    b.Property<int>("PersonelId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RandevuId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RandevuPersonelId");
-
                     b.HasIndex("PersonelId");
 
-                    b.HasIndex("RandevuId");
-
-                    b.ToTable("RandevuPersonels");
+                    b.ToTable("Randevus");
                 });
 
             modelBuilder.Entity("odevweb.Models.Personel", b =>
@@ -245,7 +206,7 @@ namespace odevweb.Migrations
             modelBuilder.Entity("odevweb.Models.PersonelMusaitlik", b =>
                 {
                     b.HasOne("odevweb.Models.Personel", "Personel")
-                        .WithMany("PersonelMusaitliks")
+                        .WithMany()
                         .HasForeignKey("PersonelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -255,6 +216,12 @@ namespace odevweb.Migrations
 
             modelBuilder.Entity("odevweb.Models.Randevu", b =>
                 {
+                    b.HasOne("odevweb.Models.Islem", "Islem")
+                        .WithMany("Randevus")
+                        .HasForeignKey("IslemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("odevweb.Models.Kullanici", "Kullanici")
                         .WithMany("Randevus")
                         .HasForeignKey("KullaniciId")
@@ -265,45 +232,17 @@ namespace odevweb.Migrations
                         .WithMany("Randevus")
                         .HasForeignKey("MusteriId");
 
-                    b.Navigation("Kullanici");
-                });
-
-            modelBuilder.Entity("odevweb.Models.RandevuIslem", b =>
-                {
-                    b.HasOne("odevweb.Models.Islem", "Islem")
-                        .WithMany("Randevus")
-                        .HasForeignKey("IslemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("odevweb.Models.Randevu", "Randevu")
-                        .WithMany("Islems")
-                        .HasForeignKey("RandevuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Islem");
-
-                    b.Navigation("Randevu");
-                });
-
-            modelBuilder.Entity("odevweb.Models.RandevuPersonel", b =>
-                {
                     b.HasOne("odevweb.Models.Personel", "Personel")
                         .WithMany("Randevus")
                         .HasForeignKey("PersonelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("odevweb.Models.Randevu", "Randevu")
-                        .WithMany("Personels")
-                        .HasForeignKey("RandevuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Islem");
+
+                    b.Navigation("Kullanici");
 
                     b.Navigation("Personel");
-
-                    b.Navigation("Randevu");
                 });
 
             modelBuilder.Entity("odevweb.Models.Islem", b =>
@@ -325,16 +264,7 @@ namespace odevweb.Migrations
 
             modelBuilder.Entity("odevweb.Models.Personel", b =>
                 {
-                    b.Navigation("PersonelMusaitliks");
-
                     b.Navigation("Randevus");
-                });
-
-            modelBuilder.Entity("odevweb.Models.Randevu", b =>
-                {
-                    b.Navigation("Islems");
-
-                    b.Navigation("Personels");
                 });
 #pragma warning restore 612, 618
         }

@@ -2,14 +2,6 @@
     ViewData["Title"] = "Admin Panel";
 }
 
-<!--
-<h2>Admin Panel</h2>
-<p>Bu sayfada yönetim işlemleri yapılabilir.</p>
-
-<ul>
-    <li><a asp-controller="Admin" asp-action="KullaniciListesi">Kullanıcı Listesi</a></li>
-    <li><a asp-controller="Admin" asp-action="KullaniciEkle">Yeni Kullanıcı Ekle</a></li>
-</ul>-->
 
 
 <h2 class="text-center">Admin Panel</h2>
@@ -57,6 +49,21 @@
                     <ul>
                         <li><a asp-controller="Admin" asp-action="IslemIndex">İşlem Listesi</a></li>
                         <li><a asp-controller="Admin" asp-action="IslemCreate">Yeni İşlem Ekle</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Randevu Yönetimi -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    Randevu Yönetimi
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><a asp-controller="Admin" asp-action="RandevuListesi">Randevu Listesi</a></li>
+                        <li><a asp-controller="Admin" asp-action="RandevuEkle">Randevu Ekle</a></li>
                     </ul>
                 </div>
             </div>

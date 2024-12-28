@@ -34,9 +34,6 @@ namespace odevweb.Controllers
             return View();
         }
 
-        /*public IActionResult RandevuAl()
-        {
-            return View();
-        }*/
+       
     }
 }

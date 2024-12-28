@@ -12,11 +12,11 @@ namespace odevweb.Models
         public string? IslemAd { get; set; }
         public int Sure { get; set; }
         public double Ucret { get; set; }
-
-        public ICollection<RandevuIslem>? Randevus { get; set; }
-
+        //public ICollection<RandevuIslem>? RandevuIslems { get; set; }
         public ICollection<Personel>? Personels { get; set; }
+        public ICollection<Randevu>? Randevus { get; set; }
+
     }
 
-
+  
 }

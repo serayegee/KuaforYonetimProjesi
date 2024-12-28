@@ -157,71 +157,10 @@ namespace odevweb.Controllers
         [HttpGet]
         public IActionResult PersonelCreate()
         {
-            /*
-              using (var context = new KuaforContext())
-              {
-                  // İşlem listesini dropdown için SelectList olarak ViewBag'e gönderiyoruz
-                  ViewBag.IslemId = new SelectList(context.Islems, "IslemId", "Ad");
-                  return View();
-              }*/
-            /*
-            using (var context = new KuaforContext())
-            {
-                var model = new Personel
-                {
-                    personel = new Personel(),
-                    Islemler = context.Islems.ToList() // Dropdown için işlemleri al
-                };
-                return View(model);
-            }*/
-            /* using (var context = new KuaforContext())
-             {
-                // İşlem listesini dropdown için ViewBag ile gönderiyoruz
-                ViewBag.Islemler = context.Islems.ToList();
-                 return View();
-             }*/
-
-            /* using (var context = new KuaforContext())
-             {
-                 // İşlemleri SelectList'e çevirip ViewBag'e atıyoruz
-                 ViewBag.IslemId = new SelectList(context.Islems, "IslemId", "Ad");
-                 return View();
-             }*/
-
             ViewData["IslemId"] = new SelectList(_context.Islems, "IslemId", "IslemAd");
             return View();
 
         }
-
-        /*
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult PersonelEkle(Personel model)
-        {
-            if (ModelState.IsValid)
-            {
-                using (var context = new KuaforContext())
-                {
-                    // Girilen IslemId'nin veritabanında mevcut olup olmadığını kontrol edin
-                    var islem = context.Islems.FirstOrDefault(i => i.IslemId == model.IslemId);
-                    if (islem == null)
-                    {
-                        ModelState.AddModelError("IslemId", "Geçersiz İşlem ID. Lütfen doğru bir ID girin.");
-                        return View(model);
-                    }
-
-                    // Personel kaydını ekle
-                    context.Personels.Add(model);
-                    context.SaveChanges();
-
-                    return RedirectToAction("PersonelListesi");
-                }
-            }
-
-            // Hata durumunda aynı sayfayı döndür
-            return View(model);
-        }
-        */
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -333,69 +272,7 @@ namespace odevweb.Controllers
         {
             return (_context.Personels?.Any(e => e.PersonelId == id)).GetValueOrDefault();
         }
-
-
-        /*
-        public IActionResult PersonelEkle(Personel model)
-        {
-
-            if (ModelState.IsValid)
-            {
-                using (var context = new KuaforContext())
-                {
-                    // İşlem ID'nin geçerli olup olmadığını kontrol et
-                    var islem = context.Islems.FirstOrDefault(i => i.IslemId == model.IslemId);
-                    if (islem == null)
-                    {
-                        ModelState.AddModelError("IslemId", "Geçersiz İşlem ID. Lütfen doğru bir işlem seçin.");
-                        ViewBag.IslemId = new SelectList(context.Islems, "IslemId", "Ad");
-                        return View(model);
-                    }
-
-                    // Personel kaydını ekle
-                    context.Personels.Add(model);
-                    context.SaveChanges();
-
-                    return RedirectToAction("PersonelListesi");
-                }
-            }
-
-            // Hata durumunda dropdown'u tekrar doldur
-            using (var context = new KuaforContext())
-            {
-                ViewBag.IslemId = new SelectList(context.Islems, "IslemId", "Ad");
-            }
-            return View(model);
-            /*
-
-              if (ModelState.IsValid)
-              {
-                  using (var context = new KuaforContext())
-                  {
-                      context.Personels.Add(model);
-                      context.SaveChanges();
-                      return RedirectToAction("PersonelListesi");
-                  }
-              }
-
-              // Hata durumunda dropdown'u doldur
-              using (var context = new KuaforContext())
-              {
-                  ViewBag.Islemler = context.Islems.ToList();
-              }
-              return View(model);}*/
-
-
-        /*
-        public IActionResult IslemListesi()
-        {
-            using (var context = new KuaforContext())
-            {
-                var islemler = context.Islems.ToList(); // Veritabanından işlemleri çek
-                return View(islemler); // Görünümü işlemlerle birlikte döndür
-            }
-        }*/
-
+     
         public IActionResult IslemIndex()
         {
             var islemler = _context.Islems.ToList();
@@ -494,57 +371,42 @@ namespace odevweb.Controllers
 
             Console.WriteLine("İşlem başarıyla silindi!");
             return RedirectToAction("IslemIndex");
-            /*
-            // İşlem verisini alıp silme işlemini gerçekleştiriyoruz
-            var islemler = _context.Islems.FirstOrDefault(i => i.IslemId == id);
-            if (islemler != null)
-            {
-                _context.Islems.Remove(islemler);
-                _context.SaveChanges(); // Değişiklikleri veritabanına kaydet
-            }
-            return RedirectToAction("IslemIndex"); // Listeye geri dön*/
         }
 
-
-        /*
-        public IActionResult PersonelListesi()
+        public IActionResult RandevuListesi()
         {
-            using (var context = new KuaforContext())
-            {
-                var personeller = context.Personels.ToList(); // Veritabanından işlemleri çek
-                return View(personeller); // Görünümü işlemlerle birlikte döndür
-            }
+            var randevular = _context.Randevus
+                .Include(r => r.Kullanici)
+                .Include(r => r.Personel)
+                .Include(r => r.Islem)
+                .ToList();
+            return View(randevular);
         }
 
         [HttpGet]
-        public IActionResult PersonelSil(int id)
+        public IActionResult RandevuEkle()
         {
-            using (var context = new KuaforContext())
-            {
-                var personel = context.Personels.FirstOrDefault(p => p.PersonelId == id);
-                if (personel == null)
-                {
-                    return NotFound(); // Eğer personel bulunamazsa 404 döndür
-                }
-                return View(personel); // Silmeden önce personeli göster
-            }
+            ViewData["MusteriId"] = new SelectList(_context.Kullanicis, "KullaniciId", "Ad");
+            ViewData["PersonelId"] = new SelectList(_context.Personels, "PersonelId", "PersonelAd");
+            ViewData["IslemId"] = new SelectList(_context.Islems, "IslemId", "IslemAd");
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PersonelSilConfirmed(int id)
+        public IActionResult RandevuEkle(Randevu model)
         {
-            using (var context = new KuaforContext())
+            if (ModelState.IsValid)
             {
-                var personel = context.Personels.FirstOrDefault(p => p.PersonelId == id);
-                if (personel != null)
-                {
-                    context.Personels.Remove(personel); // Personeli sil
-                    context.SaveChanges(); // Değişiklikleri kaydet
-                }
-                return RedirectToAction("PersonelListesi"); // Listeye geri dön
+                _context.Randevus.Add(model);
+                _context.SaveChanges();
+                return RedirectToAction("RandevuListesi");
             }
-        }*/
+            ViewData["KullaniciId"] = new SelectList(_context.Musteris, "KullaniciId", "Ad", model.KullaniciId);
+            ViewData["PersonelId"] = new SelectList(_context.Personels, "PersonelId", "PersonelAd", model.PersonelId);
+            ViewData["IslemId"] = new SelectList(_context.Islems, "IslemId", "IslemAd", model.IslemId);
+            return View(model);
+        }
 
 
 

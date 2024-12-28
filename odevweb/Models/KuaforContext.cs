@@ -18,10 +18,8 @@ namespace odevweb.Models
         public DbSet<Musteri> Musteris { get; set; }
         public DbSet<Personel> Personels { get; set; }
         public DbSet<PersonelMusaitlik> PersonelMusaitliks { get; set; }
-        public DbSet<Randevu> Randevus { get; set; }
-        public DbSet<RandevuIslem> RandevuIslems { get;}
+        public DbSet<Randevu> Randevus { get; set; }    
         public DbSet<Kullanici> Kullanicis { get; set; }
-        public DbSet<RandevuPersonel> RandevuPersonels { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -53,7 +51,7 @@ namespace odevweb.Models
         .HasOne(p => p.Islem)
         .WithMany(i => i.Personels)
         .HasForeignKey(p => p.IslemId)
-        .OnDelete(DeleteBehavior.Cascade); // Alternatif olarak SetNull kullanılabilir
+        .OnDelete(DeleteBehavior.Cascade); 
 
         }
 

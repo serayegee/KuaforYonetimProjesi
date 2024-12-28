@@ -4,34 +4,6 @@
 @{
 }
 
-<!--
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Kullanıcı Adı</th>
-            <th>Ad</th>
-            <th>Rol</th>
-            <th>İşlemler</th>
-        </tr>
-    </thead>
-    <tbody>
-        foreach (var kullanici in Model)
-        {
-            <tr>
-                <td>kullanici.KullaniciId</td>
-                <td>kullanici.KullaniciAdi</td>
-                <td>kullanici.Ad</td>
-                <td>(kullanici.IsAdmin ? "Admin" : "Kullanıcı")</td>
-                <td>
-                    <a asp-controller="Admin" asp-action="KullaniciDuzenle" asp-route-id="kullanici.KullaniciId">Düzenle</a> |
-                    <a asp-controller="Admin" asp-action="KullaniciSil" asp-route-id="kullanici.KullaniciId">Sil</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>-->
-
 
 <div class="container mt-5">
     <h2 class="text-center mb-4">Kullanıcı Listesi</h2>
